@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">College</string>
+
+    <string name="open_nav"> 열기 </string>
+    <string name="close_nav"> 닫기 </string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+</resources>
