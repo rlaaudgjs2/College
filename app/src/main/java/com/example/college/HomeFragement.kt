@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.viewpager2.widget.ViewPager2
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -33,8 +34,17 @@ class HomeFragement : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false)
+        val view = inflater.inflate(R.layout.fragment_home, container, false)
+
+        // Find ViewPager2 and set up the adapter
+        val Rollingbanner: ViewPager2 = view.findViewById(R.id.rolling_banner)
+        val imageUrls = listOf(R.drawable.ex_photo, R.drawable.photo)
+
+        val bannerAdapter = BannerAdapter(imageUrls)
+        Rollingbanner.adapter = bannerAdapter
+
+        // Return the inflated view
+        return view
     }
 
     companion object {

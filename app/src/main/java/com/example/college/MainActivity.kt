@@ -14,7 +14,7 @@ import com.google.android.material.navigation.NavigationView
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 
-class MainActivity : AppCompatActivity() , NavigationView.OnNavigationItemSelectedListener{
+class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var drawerLayout: DrawerLayout
 
@@ -22,8 +22,9 @@ class MainActivity : AppCompatActivity() , NavigationView.OnNavigationItemSelect
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        drawerLayout = findViewById<DrawerLayout>(R.id.drawer_layout)
 
+
+        drawerLayout = findViewById<DrawerLayout>(R.id.drawer_layout)
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
 
@@ -31,7 +32,6 @@ class MainActivity : AppCompatActivity() , NavigationView.OnNavigationItemSelect
         navigationView.setNavigationItemSelectedListener(this)
 
         val toggle = ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open_nav, R.string.close_nav)
-
         val viewPager: ViewPager2 = findViewById(R.id.viewPager)
         val tabLayout: TabLayout = findViewById(R.id.tabLayout)
 
@@ -44,7 +44,6 @@ class MainActivity : AppCompatActivity() , NavigationView.OnNavigationItemSelect
             navigationView.setCheckedItem(R.id.nav_home)
         }
 
-        // ViewPager 어댑터 설정
         val fragmentList = arrayListOf<Fragment>(
             FirstFragment(),
             PersonalFragment()
@@ -52,7 +51,6 @@ class MainActivity : AppCompatActivity() , NavigationView.OnNavigationItemSelect
         val adapter = TabAdapter(fragmentList, this)
         viewPager.adapter = adapter
 
-        // TabLayout 설정
         TabLayoutMediator(tabLayout, viewPager) { tab, position ->
             tab.text = when (position) {
                 0 -> "메인 화면"
@@ -60,27 +58,24 @@ class MainActivity : AppCompatActivity() , NavigationView.OnNavigationItemSelect
                 else -> null
             }
         }.attach()
-
     }
-    override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.nav_home -> supportFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, HomeFragement()).commit()
-            R.id.nav_rank -> supportFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, PersonalFragment()).commit()
-            R.id.nav_school -> supportFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, SchoolFragement()).commit()
-            R.id.nav_sports -> supportFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, SportsFragement()).commit()
-            R.id.nav_events -> supportFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, EventFragment()).commit()
-            R.id.nav_info -> supportFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, InfoFragment()).commit()
 
+    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        val fragmentTransaction = supportFragmentManager.beginTransaction()
+        when (item.itemId) {
+            R.id.nav_home -> fragmentTransaction.replace(R.id.fragment_container, HomeFragement())
+            R.id.nav_rank -> fragmentTransaction.replace(R.id.fragment_container, PersonalFragment())
+            R.id.nav_school -> fragmentTransaction.replace(R.id.fragment_container, SchoolFragement())
+            R.id.nav_sports -> fragmentTransaction.replace(R.id.fragment_container, SportsFragement())
+            R.id.nav_events -> fragmentTransaction.replace(R.id.fragment_container, EventFragment())
+            R.id.nav_info -> fragmentTransaction.replace(R.id.fragment_container, InfoFragment())
         }
+        fragmentTransaction.commit()
+
         drawerLayout.closeDrawer(GravityCompat.START)
         return true
     }
+
     override fun onBackPressed() {
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
             drawerLayout.closeDrawer(GravityCompat.START)

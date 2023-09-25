@@ -12,6 +12,13 @@
 
 
     <!-- ViewPager2 및 TabLayout -->
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/rolling_banner"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -64,7 +71,9 @@
         app:menu="@menu/nav_menu"
 
         app:itemIconTint="@color/lavender"
-        app:itemTextColor="@color/lavender"/>
+        app:itemTextColor="@color/lavender">
+
+    </com.google.android.material.navigation.NavigationView>
 
 
 </androidx.drawerlayout.widget.DrawerLayout>
